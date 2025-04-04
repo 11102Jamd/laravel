@@ -14,39 +14,32 @@
                             </div>
                         @endif
 
-                        <form action="" method="post">
+                        <form action="{{ route('entries.store') }}" method="POST">
+                            @csrf
+
                             <div class="form-group">
-                                <label for="title">title</label>
-
-                                <div class="">
-                                    <input id="title" type="text"
-                                        class="form-control @error('title') is-invalid @enderror" name="title" required
-                                        autocomplete="title" autofocus>
-
-                                    @error('title')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                <label for="title">Title</label>
+                                <input id="title" type="text"
+                                    class="form-control @error('title') is-invalid @enderror" name="title"
+                                    value="{{ old('title') }}" required autofocus>
+                                @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
-                            <div class="row mb-3">
+                            <div class="form-group">
                                 <label for="content">Content</label>
-
-                                <div class="col-md-6">
-                                    <textarea id="content" type="textarea" class="form-control @error('content') is-invalid @enderror" name="content"
-                                        required>{{ 'content' }}
-                                    </textarea>
-
-                                    @error('content')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                <textarea id="content" class="form-control @error('content') is-invalid @enderror" name="content" required>{{ old('content') }}</textarea>
+                                @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <button type="submit" class="btn btn-primary ">Publish</button>
+
+                            <button type="submit" class="btn btn-primary">Publish</button>
                         </form>
                     </div>
                 </div>

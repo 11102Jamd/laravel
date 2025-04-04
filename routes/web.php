@@ -1,15 +1,20 @@
 <?php
 
 use App\Http\Controllers\EntryController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Rutas públicas
+Route::get('/', [GuestController::class, 'index'])->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/entries/create', [EntryController::class, 'create'])->name('entries.create');
+    Route::post('/entries', [EntryController::class, 'store'])->name('entries.store');
 
-Route::get('/entries/create', [EntryController::class, 'create']);
+    Route::get('/entries/{entry}', [GuestController::class, 'show']);
+});

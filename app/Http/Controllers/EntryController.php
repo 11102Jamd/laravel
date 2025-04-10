@@ -28,9 +28,30 @@ class EntryController extends Controller
         $entry = Entry::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
-            'user_id' => Auth::id() 
+            'user_id' => Auth::id()
         ]);
 
         return redirect()->route('home')->with('success', 'Entry created!');
+    }
+
+    public function edit(Entry $entry)
+    {
+        return view('entries.edit', compact('entry'));
+    }
+
+    public function update(Request $request, Entry $entry)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255|unique:entries,title,'.$entry->id,
+            'content' => 'required|string|min:25|max:1000',
+        ]);
+
+        $entry->update([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect()->route('home')->with('success', 'Entry Updated');
     }
 }

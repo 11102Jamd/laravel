@@ -15,16 +15,16 @@ class EntrySeeder extends Seeder
      */
     public function run(): void
     {
-        // $users = User::all();
+        $users = User::all();
 
-        // if ($users->isEmpty()) {
-        //     $users = User::factory(5)->create();
-        // }
+        if ($users->isEmpty()) {
+            $users = User::factory(5)->create();
+        }
 
-        // foreach ($users as $user) {
-        //     Entry::factory(2)->create(['user_id' => $user->id]);
-        // }
+        foreach ($users as $user) {
+            Entry::factory(2)->create(['user_id' => $user->id]);
+        }
 
-        EntryFactory::new()->count(100)->create();
+        // EntryFactory::new()->count(100)->create();
     }
 }

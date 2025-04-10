@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function entries(): HasMany
     {
-        return $this->hasMany(entry::class);
+        return $this->hasMany(Entry::class);
     }
 }

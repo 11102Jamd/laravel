@@ -22,7 +22,7 @@ class EntrySeeder extends Seeder
         }
 
         foreach ($users as $user) {
-            Entry::factory(2)->create(['user_id' => $user->id]);
+            Entry::factory(10)->create(['user_id' => $user->id]);
         }
 
         // EntryFactory::new()->count(100)->create();
